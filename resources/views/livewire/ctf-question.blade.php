@@ -5,8 +5,8 @@
 
                 <div>
                         <select style="width: 150px" name="cars" id="cars" @change="$wire.fnChange($event.target.value)">
-                            <template x-for="(type, index) in $wire.types" :key="index">
-                                <option x-bind:value="type['type']" x-text="type['name']"></option>
+                            <template x-for="(type, index, collection) in $wire.types" :key="index">
+                                <option x-bind:value="type['question_type']" x-text="type['option']['value']"></option>
                             </template>
                         </select>
 
@@ -16,8 +16,8 @@
         </div>
     </div>
 
-<div x-data="{ questions: @entangle('questions'), show: false, count:1 }">
-    <template x-for="(quest, key, collection) in Object.values(@entangle('questions'))" :key="key">
+<div x-data="{ questions: @entangle('questions').defer, show: false, count:1 }">
+    <template x-for="(quest, key, collection) in Object.values(questions)" :key="key">
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" style="padding: 5px 15px;">

@@ -9,6 +9,6 @@
     </x-slot>
 
 
-    <livewire:ctf-question />
+    <livewire:questions />
 
 </x-app-layout>

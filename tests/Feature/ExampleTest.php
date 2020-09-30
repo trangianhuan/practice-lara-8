@@ -36,7 +36,7 @@ class ExampleTest extends TestCase
     public function testit_basic_Test3()
     {
         $response = $this->get('/');
-        $response->assertStatus(200);
+        $response->assertStatus(400);
     }
 
     /**
@@ -44,9 +44,11 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function it_basic_test4()
+    public function test_it_basic_test4()
     {
-        $response = $this->get('/');
-        $response->assertStatus(200);
+        $expected = 10;
+        // TODO
+        $actual = 11;
+        $this->assertSame($expected, $actual);
     }
 }

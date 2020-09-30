@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Question;
+use Exception;
+use Log;
 
 class FormQuestion extends Component
 {
+    public $questionId;
     public $title;
     public $question;
     public $answer;
@@ -23,9 +26,34 @@ class FormQuestion extends Component
     {
         $data = $this->validate();
 
-        Question::create($data);
+        if (!empty($this->questionId)) {
+            $question = Question::where('id', $this->questionId)
+                ->update($data);
+        } else {
+            Question::create($data);
+        }
 
-        return redirect()->to('/question');
+        return redirect()->to('/questions');
+    }
+
+    public function mount()
+    {
+
+        if (!empty($this->questionId)) {
+            try {
+                $question = Question::find($this->questionId);
+                if ($question) {
+                    $this->title = $question->title;
+                    $this->question = $question->question;
+                    $this->answer = $question->answer;
+                    $this->question_type = $question->question_type;
+                }else{
+                    abort(404);
+                }
+            } catch (Exception $e) {
+                Log::error($e);
+            }
+        }
     }
 
     public function render()

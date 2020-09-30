@@ -13,6 +13,10 @@ class Question extends Model
         'question_type',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
     public function option()
     {
         return $this->belongsTo(Option::class, 'question_type')->withDefault();
