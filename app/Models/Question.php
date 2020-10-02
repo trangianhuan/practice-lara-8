@@ -21,4 +21,9 @@ class Question extends Model
     {
         return $this->belongsTo(Option::class, 'question_type')->withDefault();
     }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
 }

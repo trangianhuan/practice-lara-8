@@ -8,6 +8,7 @@ use Laravel\Jetstream\Contracts\AddsTeamMembers;
 use Laravel\Jetstream\Events\TeamMemberAdded;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Rules\Role;
+use App\Models\User;
 
 class AddTeamMember implements AddsTeamMembers
 {
@@ -26,12 +27,27 @@ class AddTeamMember implements AddsTeamMembers
 
         $this->validate($team, $email, $role);
 
-        $team->users()->attach(
-            $newTeamMember = Jetstream::findUserByEmailOrFail($email),
-            ['role' => $role]
-        );
+        $newTeamMember = Jetstream::findUserByEmailOrFail($email);
+        dd($newTeamMember->id);
 
-        TeamMemberAdded::dispatch($team, $newTeamMember);
+        $userHasOtherTeam = User::join('team_user', function ($join) {
+            $join->on('users.id', '=', 'team_user.user_id');
+        })->join('teams', function ($join) {
+            $join->on('teams.id', '=', 'team_user.team_id')
+                ->where('personal_team', '<>', 1);
+        })->where('team_user.user_id', $newTeamMember->id)
+        ->count();
+dd($userHasOtherTeam);
+        if (!$userHasOtherTeam) {
+            $team->users()->attach(
+                $newTeamMember,
+                ['role' => $role]
+            );
+
+            $newTeamMember->update(['current_team_id' => $team->id]);
+
+            TeamMemberAdded::dispatch($team, $newTeamMember);
+        }
     }
 
     /**

@@ -4,10 +4,13 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Question;
+use App\Models\Answer;
 use Michelf\Markdown;
+use Auth;
 
 class CtfQuestion extends Component
 {
+    const MINUS_POINT_PERCENT = 10;
     public $types = [
         ['question_type' => 0, 'option' => ['value' => 'All']]
     ];
@@ -33,12 +36,17 @@ class CtfQuestion extends Component
 
     public function mount()
     {
-        $this->questions = Question::with('option')->get();
+        $currentTeam = Auth::user()->currentTeam->id ?? 0;
+        $this->questions = Question::with(['option', 'answers' => function($q) use ($currentTeam){
+            $q->where('team_id', $currentTeam);
+        }])->get();
         foreach ($this->questions as $qs) {
             $qs['question'] = Markdown::defaultTransform(nl2br($qs['question']));
+            $qs['showQuestion'] = !count($qs['answers']);
         }
 
-        $this->questionsAll = $this->questions->groupBy('question_type')->toArray();
+        $this->questionsAll[0] = $this->questions->toArray();
+        $this->questionsAll = $this->questionsAll + $this->questions->groupBy('question_type')->toArray();
 
         $arrTypes = $this->questions->unique('question_type')->values()->toArray();
         foreach ($arrTypes as $type) {
@@ -60,17 +68,50 @@ class CtfQuestion extends Component
 
     public function submitQuest($answer, $questionId)
     {
-        $question = Question::find($questionId);
-        if ($question) {
+        if (Auth::check()) {
+            $user = Auth::user();
             $messageID = 'answer-mess-' . $questionId;
-            $message = 'Success';
-            // $message = 'Error';
+            $code = false;
+            $question = Question::find($questionId);
+            $message = 'Your answer is not correct. Give it one more try!';
+            if ($question) {
+                if ($question->answer === $answer){
+                    $code = true;
+                    $message = 'Your answer is correct.';
+                    $userCurrentTeamId = $user->currentTeam->id ?? 0;
+                    $numberOfAnswerOfTeam = Answer::where('question_id', $questionId)
+                        ->where('team_id', $userCurrentTeamId)->count();
+                    if (!$numberOfAnswerOfTeam) {
+                        $numberOfTeamAnswered = Answer::whereQuestionId($questionId)->count();
+                        Answer::updateOrCreate([
+                            'question_id' => $questionId,
+                            'user_id' => $user->id,
+                            'team_id' => $userCurrentTeamId,
+                        ], [
+                            'point' => $this->calcPoint($numberOfTeamAnswered, $question->point),
+                        ]);
+                    }
+                    foreach ($this->questions as $qs) {
+                        if ($questionId == $qs['id']) {
+                            $qs['showQuestion'] = false;
+                        }
+                    }
+                }
 
-            $this->dispatchBrowserEvent('submitQuest', [
-                'code' => true,
-                'messageID' => $messageID,
-            ]);
+                $this->dispatchBrowserEvent('submitQuest', [
+                    'code' => $code,
+                    'messageID' => $messageID,
+                    'message' => $message,
+                ]);
+            }
         }
 
+    }
+
+    private function calcPoint($numberOfTeamAnswered, $pointQuestion)
+    {
+        $minusPoint = $pointQuestion * self::MINUS_POINT_PERCENT / 100;
+
+        return $pointQuestion - $numberOfTeamAnswered * $minusPoint;
     }
 }

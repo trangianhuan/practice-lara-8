@@ -22,6 +22,24 @@
         <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.1/marked.min.js"></script>
         <script type="text/javascript">
+            function toogleShowQuest(){
+                // let id = this.event.target.getAttribute('data-key')
+                // console.log('toogleShowQuest', id);
+                // let currentStyleDisplay = document.getElementById('quest-cont-' + id).style.display
+                // if(currentStyleDisplay && currentStyleDisplay == 'none'){
+                //     document.getElementById('quest-cont-' + id).style.display = 'block';
+                // } else {
+                //     document.getElementById('quest-cont-' + id).style.display = 'none';
+                // }
+            }
+
+            function markedQuest(text){
+                if (text) {
+                    return marked(text).replace(/(?:\r\n|\r|\n)/g, '<br>');
+                }
+                return ''
+            }
+
             var serialize = function (form) {
               // Setup our serialized data
               var serialized = [];
