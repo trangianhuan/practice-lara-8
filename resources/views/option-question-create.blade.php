@@ -6,6 +6,6 @@
     </x-slot>
 
 
-    <livewire:form-option />
+    <livewire:form-option :optionId="$id" />
 
 </x-app-layout>

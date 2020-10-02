@@ -63,6 +63,18 @@ class UserServiceTest extends TestCase
         $this->assertDatabaseMissing('users', $data);
     }
 
+    public function testCalcSumIsZero($a, $b)
+    {
+        $userService = $this->app['App\Services\UserService'];
+        $a = 0;
+        $b = 0;
+        $actual = $userService->calcSum($a, $b);
+        //$actual Tổng hai số = 0
+        $expected = trans('messages.sumIsZero');
+
+        $this->assertSame($actual, $expected);
+    }
+
     /**
      *
      * @dataProvider calcSumDataProvider
@@ -71,7 +83,7 @@ class UserServiceTest extends TestCase
     {
         $userService = $this->app['App\Services\UserService'];
         $actual = $userService->calcSum($a, $b);
-        $expected = $a + $b +2;
+        $expected = $a + $b;
 
         $this->assertSame($actual, $expected);
     }
@@ -84,21 +96,21 @@ class UserServiceTest extends TestCase
         ];
     }
 
-    // public function testGetDataGuzzleSuccess()
-    // {
-    //     $userService = $this->app['App\Services\UserService'];
+    public function testGetDataGuzzleSuccess()
+    {
+        $userService = $this->app['App\Services\UserService'];
 
-    //     $rs = $userService->getDataGuzzle();
+        $rs = $userService->getDataGuzzle();
 
-    //     $this->assertTrue(true);
-    // }
+        $this->assertTrue(true);
+    }
 
-    // public function testVariableProtected()
-    // {
-    //     $userService = $this->app['App\Services\UserService'];
-    //     $this->invokeVar($userService, 'varProtected', 25);
-    //     dd($userService->getVarProtected());
-    // }
+    public function testVariableProtected()
+    {
+        $userService = $this->app['App\Services\UserService'];
+        $this->invokeVar($userService, 'varProtected', 25);
+        // dd($userService->getVarProtected());
+    }
 
 
     public function invokeMethod($object, $methodName, array $parameters = array())

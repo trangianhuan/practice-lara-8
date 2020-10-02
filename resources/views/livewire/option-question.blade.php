@@ -18,7 +18,11 @@
             @foreach($options as $option)
               <tr>
                 <td class="px-6 py-2 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900">{{ $option['value'] ?? '' }}</div>
+                  <a href="{{ route('options.question.edit', ['id' => $option['id']]) }}"
+                    class="text-indigo-600 hover:text-indigo-900">
+                    {{ $option['value'] ?? '' }}
+                  </a>
+
                 </td>
                 <td class="px-6 py-2 whitespace-no-wrap text-sm leading-5 text-gray-500">
                   {{ $option['created_at'] ?? '' }}

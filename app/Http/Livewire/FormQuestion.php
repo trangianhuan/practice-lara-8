@@ -36,6 +36,18 @@ class FormQuestion extends Component
         return redirect()->to('/questions');
     }
 
+    public function abc($data)
+    {
+        $params = [];
+        parse_str($data, $params);
+
+        $this->title = $params['title'] ?? $this->title;
+        $this->question = $params['question'] ?? $this->question;
+        $this->answer = $params['answer'] ?? $this->answer;
+        $this->question_type = $params['question_type'] ?? $this->question_type;
+        $this->submit();
+    }
+
     public function mount()
     {
 

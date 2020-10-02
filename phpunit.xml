@@ -4,6 +4,9 @@
          bootstrap="vendor/autoload.php"
          colors="true"
 >
+    <logging>
+      <log type="coverage-html" target="./tests/report" lowUpperBound="35" highLowerBound="70"/>
+    </logging>
     <testsuites>
         <testsuite name="alltest">
             <!-- <directory prefix="Example" suffix="Test.php">./tests/</directory> -->

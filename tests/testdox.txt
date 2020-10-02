@@ -1,0 +1,30 @@
+Demo (admintest\Demo)
+ [x] Demo test
+ [x] Demo test
+ [x] Demo test
+ [x] Demo test
+ [x] Demo test
+
+Example (Tests\Unit\Example)
+ [x] Basic test
+ [x] Basic test two
+
+User Controller (Tests\Unit\Http\Controllers\UserController)
+ [x] Show user success
+
+User Service (Tests\Unit\Services\UserService)
+ [x] Create user success
+ [ ] Get user success
+ [x] Create user fail
+ [ ] Calc sum is zero
+ [ ] Calc sum with data set "test a=0 b=2"
+ [ ] Calc sum with data set "test a=5 b=6"
+ [x] Get data guzzle success
+ [ ] Variable protected
+
+Example (Tests\Feature\Example)
+ [ ] Basic test
+ [x] It basic test 2
+ [ ] It basic Test3
+ [ ] It basic test4
+

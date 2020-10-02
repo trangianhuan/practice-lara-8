@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="20" assertions="20" errors="2" warnings="0" failures="6" skipped="0" time="6.834478">
+    <testsuite name="alltest" tests="5" assertions="5" errors="0" warnings="0" failures="0" skipped="0" time="0.153395">
+      <testsuite name="admintest\DemoTest" file="/var/www/source72/practice-lara-8/DemoTest.php" tests="5" assertions="5" errors="0" warnings="0" failures="0" skipped="0" time="0.153395">
+        <testcase name="testDemoTest" class="admintest\DemoTest" classname="admintest.DemoTest" file="/var/www/source72/practice-lara-8/DemoTest.php" line="15" assertions="1" time="0.097985"/>
+        <testcase name="testDemoTest2" class="admintest\DemoTest" classname="admintest.DemoTest" file="/var/www/source72/practice-lara-8/DemoTest.php" line="27" assertions="1" time="0.016973"/>
+        <testcase name="testDemoTest3" class="admintest\DemoTest" classname="admintest.DemoTest" file="/var/www/source72/practice-lara-8/DemoTest.php" line="39" assertions="1" time="0.012641"/>
+        <testcase name="testDemoTest4" class="admintest\DemoTest" classname="admintest.DemoTest" file="/var/www/source72/practice-lara-8/DemoTest.php" line="51" assertions="1" time="0.013193"/>
+        <testcase name="testDemoTest5" class="admintest\DemoTest" classname="admintest.DemoTest" file="/var/www/source72/practice-lara-8/DemoTest.php" line="63" assertions="1" time="0.012603"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Unit" tests="11" assertions="11" errors="2" warnings="0" failures="3" skipped="0" time="4.628576">
+      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/source72/practice-lara-8/tests/Unit/ExampleTest.php" tests="2" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="4.000689">
+        <testcase name="testBasicTest" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" file="/var/www/source72/practice-lara-8/tests/Unit/ExampleTest.php" line="35" assertions="1" time="2.000295"/>
+        <testcase name="testBasicTestTwo" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" file="/var/www/source72/practice-lara-8/tests/Unit/ExampleTest.php" line="47" assertions="1" time="2.000394"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\Http\Controllers\UserControllerTest" file="/var/www/source72/practice-lara-8/tests/Unit/Http/Controllers/UserControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.019126">
+        <testcase name="testShowUserSuccess" class="Tests\Unit\Http\Controllers\UserControllerTest" classname="Tests.Unit.Http.Controllers.UserControllerTest" file="/var/www/source72/practice-lara-8/tests/Unit/Http/Controllers/UserControllerTest.php" line="15" assertions="2" time="0.019126"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\Services\UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" tests="8" assertions="7" errors="2" warnings="0" failures="3" skipped="0" time="0.608761">
+        <testcase name="testCreateUserSuccess" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="20" assertions="1" time="0.043032"/>
+        <testcase name="testGetUserSuccess" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="35" assertions="1" time="0.027338">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Unit\Services\UserServiceTest::testGetUserSuccess
+Failed asserting that two arrays are equal.
+--- Expected
++++ Actual
+@@ @@
+     'updated_at' =&gt; '2020-10-01T06:42:41.000000Z'
+     'created_at' =&gt; '2020-10-01T06:42:41.000000Z'
+     'id' =&gt; 9
++    'current_team_id' =&gt; null
++    'profile_photo_path' =&gt; null
+ )
+
+/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php:42</failure>
+        </testcase>
+        <testcase name="testCreateUserFail" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="45" assertions="2" time="0.027799"/>
+        <testcase name="testCalcSumIsZero" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="66" assertions="0" time="0.012448">
+          <error type="ArgumentCountError">Tests\Unit\Services\UserServiceTest::testCalcSumIsZero
+ArgumentCountError: Too few arguments to function Tests\Unit\Services\UserServiceTest::testCalcSumIsZero(), 0 passed in /var/www/source72/practice-lara-8/vendor/phpunit/phpunit/src/Framework/TestCase.php on line 1533 and exactly 2 expected
+
+/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php:66</error>
+        </testcase>
+        <testsuite name="Tests\Unit\Services\UserServiceTest::testCalcSum" tests="2" assertions="2" errors="0" warnings="0" failures="2" skipped="0" time="0.021923">
+          <testcase name="testCalcSum with data set &quot;test a=0 b=2&quot;" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="82" assertions="1" time="0.010719">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Unit\Services\UserServiceTest::testCalcSum with data set "test a=0 b=2" (0, 2)
+Failed asserting that 9 is identical to 7.
+
+/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php:90</failure>
+          </testcase>
+          <testcase name="testCalcSum with data set &quot;test a=5 b=6&quot;" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="82" assertions="1" time="0.011204">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Unit\Services\UserServiceTest::testCalcSum with data set "test a=5 b=6" (1, 6)
+Failed asserting that 9 is identical to 7.
+
+/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php:90</failure>
+          </testcase>
+        </testsuite>
+        <testcase name="testGetDataGuzzleSuccess" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="101" assertions="1" time="0.464533"/>
+        <testcase name="testVariableProtected" class="Tests\Unit\Services\UserServiceTest" classname="Tests.Unit.Services.UserServiceTest" file="/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php" line="110" assertions="0" time="0.011688">
+          <error type="PHPUnit\Framework\RiskyTestError">Tests\Unit\Services\UserServiceTest::testVariableProtected
+This test did not perform any assertions
+
+/var/www/source72/practice-lara-8/tests/Unit/Services/UserServiceTest.php:110</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="4" assertions="4" errors="0" warnings="0" failures="3" skipped="0" time="2.052507">
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php" tests="4" assertions="4" errors="0" warnings="0" failures="3" skipped="0" time="2.052507">
+        <testcase name="testBasicTest" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" file="/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php" line="15" assertions="1" time="0.013768">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ExampleTest::testBasicTest
+Expected status code 400 but received 200.
+Failed asserting that 400 is identical to 200.
+
+/var/www/source72/practice-lara-8/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:186
+/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php:18</failure>
+        </testcase>
+        <testcase name="itBasicTest2" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" file="/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php" line="24" assertions="1" time="2.012992"/>
+        <testcase name="testit_basic_Test3" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" file="/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php" line="36" assertions="1" time="0.014881">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ExampleTest::testit_basic_Test3
+Expected status code 400 but received 200.
+Failed asserting that 400 is identical to 200.
+
+/var/www/source72/practice-lara-8/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:186
+/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php:39</failure>
+        </testcase>
+        <testcase name="test_it_basic_test4" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" file="/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php" line="47" assertions="1" time="0.010867">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ExampleTest::test_it_basic_test4
+Failed asserting that 11 is identical to 10.
+
+/var/www/source72/practice-lara-8/tests/Feature/ExampleTest.php:52</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

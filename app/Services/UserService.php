@@ -15,8 +15,9 @@ class UserService
         $this->model = $model;
     }
 
-    public function getVarProtected(){
-        // dd($this->varProtected);
+    public function getVarProtected()
+    {
+        return $this->varProtected;
     }
 
     public function createUser($inputs)

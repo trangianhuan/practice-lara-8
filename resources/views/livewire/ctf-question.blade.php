@@ -16,32 +16,61 @@
         </div>
     </div>
 
-<div x-data="{ questions: @entangle('questions').defer, show: false, count:1 }">
-    <template x-for="(quest, key, collection) in Object.values(questions)" :key="key">
+<div x-data="{ questions: @entangle('questions')}">
+
+    @foreach($questions as $question)
         <div class="py-6">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" style="padding: 5px 15px;">
+                    <div class="cursor-pointer" :data-key="{{$question['id']}}" @click="toogleShowQuest()" >{{ $question['title'] }}</div>
+                    <div style="display: none;" id="{{ 'quest-cont-' . $question['id'] }}" wire:ignore>
+                        <div>{!! $question['question'] !!}</div>
+                        <div class="flex">
+                            <input
+                                id="{{ 'answer-' . $question['id'] }}"
+                                class="flex-1 appearance-none rounded-none relative block px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                                name="answer"
+                                type="text"
+                                required
+                                placeholder="Enter answer for puzzle">
 
-                        <button @click="init2()">aaaaa</button>
-                        <div x-text="count"></div>
-                        <div x-show="show==true">
-                            Tab Foo <br/>
-                            Tab Foo <br/>
-                            Tab Foo <br/>
+                            <div
+                                x-on:click="$wire.submitQuest(document.getElementById('{{'answer-' . $question['id']}}').value, {{$question['id']}})"
+                                class="cursor-pointer flex justify-center items-center rounded-md border border-gray-300 w-48 bg-gray-100 ml-3">
+                                Submit
+                            </div>
                         </div>
-
-                        <button @click="count++">ccc</button>
-
+                    </div>
                 </div>
             </div>
         </div>
-    </template>
+    @endforeach
 </div>
 
 </div>
 
 <script >
-    function init2(){
-        console.log('collection', this)
+
+
+    window.addEventListener('submitQuest', event => {
+        console.log(event.detail)
+    })
+
+    function toogleShowQuest(){
+        let id = this.event.target.getAttribute('data-key')
+        let currentStyleDisplay = document.getElementById('quest-cont-' + id).style.display
+        if(currentStyleDisplay && currentStyleDisplay == 'none'){
+            document.getElementById('quest-cont-' + id).style.display = 'block';
+        } else {
+            document.getElementById('quest-cont-' + id).style.display = 'none';
+        }
     }
+
+    function markedQuest(text){
+        if (text) {
+            return marked(text).replace(/(?:\r\n|\r|\n)/g, '<br>');
+        }
+        return ''
+    }
+
 </script>
