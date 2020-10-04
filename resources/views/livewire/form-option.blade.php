@@ -6,9 +6,9 @@
 
         <form wire:submit.prevent="submit" method="POST">
           <div class="rounded-md shadow-sm">
-            <div class="w-2/4 mt-6">label 1</div>
+            <div class="w-2/4 mt-6">Name</div>
             <div>
-              <input wire:model.defer="value" name="value" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Value">
+              <input wire:model.defer="value" name="value" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Enter name">
             </div>
             @error('value') <span class="text-danger">{{ $message }}</span> @enderror
           </div>

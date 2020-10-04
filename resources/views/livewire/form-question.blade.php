@@ -23,11 +23,21 @@
             <div>
               <input wire:model.defer="answer" name="answer" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Title">
             </div>
-            <div class="w-2/4">Question Type</div>
-            <div>
-              <input wire:model.defer="question_type" name="question_type" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Question type">
-            </div>
             @error('answer') <span class="text-danger">{{ $message }}</span> @enderror
+            <div class="w-2/4 mt-8">Question Type</div>
+            <div>
+              <select name="question_type"
+                class="border border-gray-300 rounded-md"
+                wire:model.defer="question_type">
+                @foreach($types as $type)
+                  <option value="{{$type->id}}">{{$type->value}}</option>
+                @endforeach
+              </select>
+            </div>
+            @error('question_type') <span class="text-danger">{{ $message }}</span> @enderror
+            <div class="w-2/4 mt-8">Point</div>
+            <input wire:model.defer="point" name="point" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Question type">
+            @error('point') <span class="text-danger">{{ $message }}</span> @enderror
           </div>
 
           <div class="mt-6 inline-block py-6" x-data="">
@@ -44,7 +54,7 @@
 </div>
 <script>
     var simplemde = new SimpleMDE({ element: document.getElementById("question") });
-    simplemde.value("{{$question}}")
+    simplemde.value("{{htmlspecialchars ($question)}}")
     simplemde.codemirror.on("change", function(param1, param2){
       document.getElementById("question").value = simplemde.value()
     });

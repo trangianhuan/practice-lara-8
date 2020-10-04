@@ -9,6 +9,7 @@ use Laravel\Jetstream\Events\TeamMemberAdded;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\Rules\Role;
 use App\Models\User;
+use DB;
 
 class AddTeamMember implements AddsTeamMembers
 {
@@ -25,19 +26,31 @@ class AddTeamMember implements AddsTeamMembers
     {
         Gate::forUser($user)->authorize('addTeamMember', $team);
 
-        $this->validate($team, $email, $role);
-
         $newTeamMember = Jetstream::findUserByEmailOrFail($email);
-        dd($newTeamMember->id);
 
-        $userHasOtherTeam = User::join('team_user', function ($join) {
-            $join->on('users.id', '=', 'team_user.user_id');
-        })->join('teams', function ($join) {
-            $join->on('teams.id', '=', 'team_user.team_id')
-                ->where('personal_team', '<>', 1);
-        })->where('team_user.user_id', $newTeamMember->id)
-        ->count();
-dd($userHasOtherTeam);
+        $userHasOtherTeam = DB::table('team_user')
+            ->where('user_id', $newTeamMember->id)
+            ->where('team_id', '<>', function ($query) use ($newTeamMember) {
+                $query->select('id')
+                    ->from('teams')
+                    ->where('teams.user_id', $newTeamMember->id)
+                    ->where('teams.personal_team', 1)
+                    ->limit(1);
+            })->count();
+
+        $numberMemberOfTeam = DB::table('team_user')
+             // ->where('user_id', $newTeamMember->id)
+            ->where('team_id', function ($query) use ($newTeamMember) {
+                $query->select('team_id')
+                    ->from('team_user as tu')
+                    ->where('tu.user_id', $newTeamMember->id)
+                    ->limit(1);
+            })->selectRaw('count(team_id) as `count`')
+            ->groupBy('team_id')
+            ->first()->count ?? 0;
+
+        $this->validate($team, $email, $role, $userHasOtherTeam, $numberMemberOfTeam);
+
         if (!$userHasOtherTeam) {
             $team->users()->attach(
                 $newTeamMember,
@@ -58,13 +71,17 @@ dd($userHasOtherTeam);
      * @param  string|null  $role
      * @return void
      */
-    protected function validate($team, string $email, ?string $role)
+    protected function validate($team, string $email, ?string $role, $userHasOtherTeam, $numberMemberOfTeam)
     {
         Validator::make([
             'email' => $email,
             'role' => $role,
+            'userHasOtherTeam' => $userHasOtherTeam,
+            'numberMemberOfTeam' => $numberMemberOfTeam,
         ], $this->rules(), [
             'email.exists' => __('We were unable to find a registered user with this email address.'),
+            'userHasOtherTeam.size' => __('This user already belongs to the team.'),
+            'numberMemberOfTeam.max' => __('This user already belongs to the team.'),
         ])->after(
             $this->ensureUserIsNotAlreadyOnTeam($team, $email)
         )->validateWithBag('addTeamMember');
@@ -82,6 +99,8 @@ dd($userHasOtherTeam);
             'role' => Jetstream::hasRoles()
                             ? ['required', 'string', new Role]
                             : null,
+            'userHasOtherTeam' => ['integer', 'size:0'],
+            'numberMemberOfTeam' => ['integer', 'max:1'],
         ]);
     }
 

@@ -25,6 +25,8 @@
                         <x-jet-label for="email" value="{{ __('Email') }}" />
                         <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email" />
                         <x-jet-input-error for="email" class="mt-2" />
+                        <x-jet-input-error for="userHasOtherTeam" class="mt-2" />
+                        <x-jet-input-error for="numberMemberOfTeam" class="mt-2" />
                     </div>
 
                     <!-- Role -->

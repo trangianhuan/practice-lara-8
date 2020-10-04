@@ -5,6 +5,6 @@
         </h2>
     </x-slot>
 
-    <livewire:form-question :questionId="$id" />
+    <livewire:form-question :questionId="$id ?? null" />
 
 </x-app-layout>

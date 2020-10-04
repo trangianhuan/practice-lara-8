@@ -11,6 +11,7 @@ class Question extends Model
         'question',
         'answer',
         'question_type',
+        'point',
     ];
 
     protected $casts = [

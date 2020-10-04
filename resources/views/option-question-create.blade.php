@@ -6,6 +6,6 @@
     </x-slot>
 
 
-    <livewire:form-option :optionId="$id" />
+    <livewire:form-option :optionId="$id ?? null" />
 
 </x-app-layout>
