@@ -45,7 +45,7 @@ class AddTeamMember implements AddsTeamMembers
                     ->from('team_user as tu')
                     ->where('tu.user_id', $newTeamMember->id)
                     ->limit(1);
-            })->selectRaw('count(team_id) as `count`')
+            })->selectRaw('count(team_id) as count')
             ->groupBy('team_id')
             ->first()->count ?? 0;
 

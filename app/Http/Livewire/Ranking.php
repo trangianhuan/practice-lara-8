@@ -13,9 +13,9 @@ class Ranking extends Component
     public function mount()
     {
         $this->ranks = DB::table('team_user')
-            ->selectRaw('team_id, (select name from teams where team_id = id) as `name`, (select sum(`point`) from answers where answers.team_id = team_user.team_id) as point')
+            ->selectRaw('team_id, (select name from teams where team_id = id) as name, (select sum(point) from answers where answers.team_id = team_user.team_id) as point')
             ->groupBy('team_id')
-            ->havingRaw('count(team_id) > 1')
+            ->havingRaw('count(team_id) > 0')
             ->orderBy('point', 'desc')
             ->get()->toArray();
     }
