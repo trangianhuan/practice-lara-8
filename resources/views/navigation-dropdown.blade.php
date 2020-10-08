@@ -28,12 +28,17 @@
                         {{ __('Question type') }}
                     </x-jet-nav-link>
                 </div>
-            @endif
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('ranking') }}" :active="request()->routeIs('ranking')">
                         {{ __('Ranking') }}
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('control') }}" :active="request()->routeIs('control')">
+                        {{ __('Control') }}
+                    </x-jet-nav-link>
+                </div>
+            @endif
             </div>
 
             <!-- Settings Dropdown -->

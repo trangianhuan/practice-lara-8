@@ -53,4 +53,8 @@ Route::middleware(['admin', 'auth:sanctum', 'verified'])->group(function () {
     Route::get('/options/question/{id}/edit', function ($id) {
         return view('option-question-create', ['id' => $id]);
     })->name('options.question.edit');
+
+    Route::get('/control', function () {
+        return view('control');
+    })->name('control');
 });

@@ -21,7 +21,12 @@
             @error('question') <span class="text-danger">{{ $message }}</span> @enderror
             <div class="w-2/4">Answer</div>
             <div>
-              <input wire:model.defer="answer" name="answer" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Title">
+              <input wire:model.defer="answer"
+                name="answer"
+                type="text"
+                required
+                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                placeholder="Enter answer">
             </div>
             @error('answer') <span class="text-danger">{{ $message }}</span> @enderror
             <div class="w-2/4 mt-8">Question Type</div>
@@ -36,7 +41,12 @@
             </div>
             @error('question_type') <span class="text-danger">{{ $message }}</span> @enderror
             <div class="w-2/4 mt-8">Point</div>
-            <input wire:model.defer="point" name="point" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Question type">
+            <input wire:model.defer="point"
+              name="point"
+              type="text"
+              required
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+              placeholder="Enter point">
             @error('point') <span class="text-danger">{{ $message }}</span> @enderror
           </div>
 

@@ -11,7 +11,7 @@ class OptionQuestion extends Component
 
     public function render()
     {
-        $this->options = Option::get()->toArray();
+        $this->options = Option::isQuestion()->get()->toArray();
 
         return view('livewire.option-question');
     }

@@ -54,7 +54,7 @@ class FormQuestion extends Component
 
     public function mount()
     {
-        $this->types = Option::all();
+        $this->types = Option::isQuestion()->get();
         if (!empty($this->questionId)) {
             try {
                 $question = Question::find($this->questionId);
@@ -64,7 +64,7 @@ class FormQuestion extends Component
                     $this->answer = $question->answer;
                     $this->question_type = $question->question_type;
                     $this->point = $question->point;
-                }else{
+                } else {
                     abort(404);
                 }
             } catch (Exception $e) {
