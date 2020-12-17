@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
-use App\Http\ArticleService;
+use App\Services\ArticleService;
 
 class ArticleController extends Controller
 {
@@ -24,9 +24,8 @@ class ArticleController extends Controller
     {
         $data = $this->articleService->getList();
 
-        return response()->json(array_merge([
-            'code' => 200,
-        ], $data), 200);
+        //return response()->json($data, 200);
+        return view('layouts.article.index');
     }
 
     /**
@@ -36,7 +35,7 @@ class ArticleController extends Controller
      */
     public function create(Request $request)
     {
-
+        return view('layouts.article.create');
     }
 
     /**
@@ -47,8 +46,10 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $params = $request->all();
-        $data = $this->articleService->store($params);
+        $params['title'] = $request->title ?? 'DF';
+
+        $data = $this->articleService->store($params, $request);
+        return redirect('article');
     }
 
     /**

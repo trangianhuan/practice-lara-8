@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -12,8 +12,12 @@ class ArticleService
         return Article::all();
     }
 
-    public function store($article)
+    public function store($article, $request)
     {
-        return Article::save($article);
+        $article = Article::create($article);
+
+        $article->addMediaFromRequest('thumbnail')->toMediaCollection('images');
+
+        return $article;
     }
 }
