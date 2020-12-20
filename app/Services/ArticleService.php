@@ -16,7 +16,8 @@ class ArticleService
     {
         $article = Article::create($article);
 
-        $article->addMediaFromRequest('thumbnail')->toMediaCollection('images');
+        $article->addMediaFromRequest('thumbnail')
+            ->toMediaCollection('images');
 
         return $article;
     }
