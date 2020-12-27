@@ -14,11 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    echo phpinfo();
     return view('welcome');
 });
 
 Route::resource('article', 'App\Http\Controllers\ArticleController');
+Route::get('broadcast', function(){
+    return view('layouts.broadcast.index');
+});
+
+Route::get('broadcast/send', function(){
+    \Log::debug('test push');
+    event(new \App\Events\TestPushEvent());
+    return view('layouts.broadcast.index');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');

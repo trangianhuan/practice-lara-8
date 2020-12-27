@@ -22,10 +22,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $data = $this->articleService->getList();
+        $articles = $this->articleService->getList();
 
         //return response()->json($data, 200);
-        return view('layouts.article.index');
+        return view('layouts.article.index', ['articles' => $articles]);
     }
 
     /**
@@ -47,6 +47,11 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $params['title'] = $request->title ?? 'DF';
+
+        $validated = $request->validate([
+            'thumbnail' => 'required|mimes:jpg,bmp,png',
+            'title' => 'required',
+        ]);
 
         $data = $this->articleService->store($params, $request);
         return redirect('article');
