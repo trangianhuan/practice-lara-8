@@ -11,20 +11,18 @@
 
 @section('scripts')
     <script type="text/javascript">
-        Echo.channel(`channel-push`)
-            .listen('TestPushEvent', (e) => {
-                console.log('push ne');
+        window.Echo.channel(`channel-push`)
+            .listen('.ExampleEvent', (e) => {
                 alert('pushed');
+                console.log('push ne');
             })
 
-        Echo.private(`channel-private`)
+        window.Echo.private(`channel-private`)
             .listen('TestPrivatePush', (e) => {
                 console.log('push private ne');
                 alert('pushed');
             })
-
-        Echo.channel(`laravel_database_channel-push`)
-            .listen('TestPushEvent', (e) => {
+            .listen('App\\Events\\TestPushEvent', (e) => {
                 console.log('push ne');
                 alert('pushed');
             })

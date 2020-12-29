@@ -6,13 +6,16 @@ use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TestPushEvent implements ShouldBroadcastNow
+class TestPushEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $data;
+
 
     /**
      * Create a new event instance.
@@ -22,6 +25,7 @@ class TestPushEvent implements ShouldBroadcastNow
     public function __construct()
     {
         //
+        $this->data = ['key' => 'mess'];
     }
 
     /**
@@ -32,5 +36,10 @@ class TestPushEvent implements ShouldBroadcastNow
     public function broadcastOn()
     {
         return new Channel('channel-push');
+    }
+
+    public function broadcastAs()
+    {
+        return 'ExampleEvent';
     }
 }

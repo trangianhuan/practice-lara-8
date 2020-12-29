@@ -32,10 +32,10 @@ import Echo from 'laravel-echo';
 // Have this in case you stop running your laravel echo server
 
 window.Echo = new Echo({
-    namespace: "App\\Events",
+    // namespace: "App\\Events",
     broadcaster: 'socket.io',
     host: window.location.hostname + ':6001',
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+    // headers: {
+    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    // }
 });
