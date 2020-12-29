@@ -24,7 +24,13 @@ Route::get('broadcast', function(){
 
 Route::get('broadcast/send', function(){
     \Log::debug('test push');
-    event(new \App\Events\TestPushEvent());
+    broadcast(new \App\Events\TestPushEvent());
+    return view('layouts.broadcast.index');
+});
+
+Route::get('broadcast/send-private', function(){
+    \Log::debug('test private push');
+    broadcast(new \App\Events\TestPrivatePush());
     return view('layouts.broadcast.index');
 });
 

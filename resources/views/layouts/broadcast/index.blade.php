@@ -17,6 +17,12 @@
                 alert('pushed');
             })
 
+        Echo.private(`channel-private`)
+            .listen('TestPrivatePush', (e) => {
+                console.log('push private ne');
+                alert('pushed');
+            })
+
         Echo.channel(`laravel_database_channel-push`)
             .listen('TestPushEvent', (e) => {
                 console.log('push ne');
