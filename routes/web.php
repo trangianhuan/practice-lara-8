@@ -22,6 +22,19 @@ Route::get('broadcast', function(){
     return view('layouts.broadcast.index');
 });
 
+Route::get('/broad/send', function(){
+    \Log::debug('start push');
+    $user = \App\Models\User::first();
+    $user->notify(new \App\Notifications\SendNoti());
+
+    $users = \App\Models\User::all();
+    \Notification::send($users, new \App\Notifications\SendNoti());
+
+
+    event(new \App\Events\TestPushEvent());
+    return view('layouts.broadcast.index');
+});
+
 Route::get('broadcast/send', function(){
     \Log::debug('test push');
     broadcast(new \App\Events\TestPushEvent());

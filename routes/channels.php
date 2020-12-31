@@ -25,3 +25,7 @@ Broadcast::channel('channel-private', function ($user, $orderId) {
 Broadcast::channel('channel-push', function ($user) {
     return true; // just allow all authenticated users
 });
+
+Broadcast::channel('notitest', function ($user) {
+    return true; // just allow all authenticated users
+});

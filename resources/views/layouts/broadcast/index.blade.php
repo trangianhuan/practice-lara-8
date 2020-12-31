@@ -11,21 +11,21 @@
 
 @section('scripts')
     <script type="text/javascript">
-        window.Echo.channel(`channel-push`)
-            .listen('.ExampleEvent', (e) => {
-                alert('pushed');
-                console.log('push ne');
+        Echo.channel('channel-push')
+            .listen('TestPushEvent', (e) => {
+                alert(112);
+                console.log(e);
             })
 
-        window.Echo.private(`channel-private`)
+        Echo.private(`channel-private`)
             .listen('TestPrivatePush', (e) => {
                 console.log('push private ne');
                 alert('pushed');
             })
-            .listen('App\\Events\\TestPushEvent', (e) => {
-                console.log('push ne');
-                alert('pushed');
-            })
 
+        Echo.channel('notitest')
+            .notification((notification) => {
+                console.log(notification.type);
+            });
     </script>
 @endsection
