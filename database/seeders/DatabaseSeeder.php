@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Article;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,5 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory(10)->create();
+        $categories = Category::pluck('id');
+
+        Article::factory(1)->create([
+            'category_id' => $categories->random(1)
+        ])
     }
 }
