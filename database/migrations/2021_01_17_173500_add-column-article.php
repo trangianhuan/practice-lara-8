@@ -15,7 +15,7 @@ class AddColumnArticle extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id');
-            $table->integer('status');
+            $table->integer('status')->default(1);
         });
     }
 
@@ -26,7 +26,9 @@ class AddColumnArticle extends Migration
      */
     public function down()
     {
-        $table->dropColumn('category_id');
-        $table->dropColumn('status');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->dropColumn('category_id');
+            $table->dropColumn('status');
+        });
     }
 }

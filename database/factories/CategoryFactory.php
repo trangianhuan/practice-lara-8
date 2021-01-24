@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
     {
         return [
             'title' => $this->faker->name,
-            'description' => $this->faker->paragraphs(),
+            'description' => $this->faker->paragraphs()[0],
             'status' => $this->faker->numberBetween(1,2),
         ];
     }
